@@ -54,22 +54,36 @@ module.exports = {
   },
   // Create a reaction
   addReaction(req, res) {
-    Reaction.create(req.body)
-      .then((reaction) => res.json(reaction))
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json(err);
-      });
+    console.log('You are adding a reaction');
+    console.log(req.body);
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $addToSet: { reactions: req.body } },
+      { runValidators: true, new: true }
+    )
+      .then((thought) =>
+        !thought
+          ? res
+              .status(404)
+              .json({ message: 'No thought found with that ID :(' })
+          : res.json(thought)
+      )
+      .catch((err) => res.status(500).json(err));
   },
   // Delete a reaction
   removeReaction(req, res) {
-    Reaction.findOneAndDelete({ _id: req.params.thoughtId })
-      .then((reaction) =>
-        !reaction
-          ? res.status(404).json({ message: 'No reaction with that ID' })
-          : Student.deleteMany({ _id: { $in: course.students } })
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $pull: { reaction: { reactionId: req.params.reactionId } } },
+      { runValidators: true, new: true }
+    )
+      .then((thought) =>
+        !thought
+          ? res
+              .status(404)
+              .json({ message: 'No thought found with that ID :(' })
+          : res.json(thought)
       )
-      .then(() => res.json({ message: 'Reaction removed!' }))
       .catch((err) => res.status(500).json(err));
   },
 };
