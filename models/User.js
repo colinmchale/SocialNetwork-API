@@ -39,9 +39,9 @@ userSchema
   .virtual('friendCount')
   // Getter
   .get(function () {
-    return friends.length;
+    return this.friends.length;
   })
 
-const User = model('course', userSchema);
+const User = model('user', userSchema);
 
 module.exports = User;
