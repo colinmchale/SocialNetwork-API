@@ -2,7 +2,7 @@
 ![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)
 
 ## Description  
-This project was made to serve as teh back end of a social network site in which users are able to add friends (other users) as well as thoughts and reactions that can be added on top of those thoughts.
+This project was made to serve as the back end of a social network site in which users are able to add friends (other users) as well as thoughts and reactions that can be added on top of those thoughts.
 
 ## Table of Contents  
 [Description](#description)   
